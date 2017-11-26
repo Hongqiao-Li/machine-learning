@@ -18369,7 +18369,7 @@ Once you have performed this implementation, the dataset will be stored in the v
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># For each feature find the data points with extreme high or low values</span>
@@ -18391,8 +18391,10 @@ Once you have performed this implementation, the dataset will be stored in the v
     <span class="n">outliers_logic</span> <span class="o">=</span> <span class="o">~</span><span class="p">((</span><span class="n">log_data</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">log_data</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="n">step</span><span class="p">))</span>
     <span class="n">outliers_data</span> <span class="o">=</span> <span class="n">log_data</span><span class="p">[</span><span class="n">outliers_logic</span><span class="p">]</span>
     <span class="n">display</span><span class="p">(</span><span class="n">outliers_data</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;multi outliers are :&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">outliers_set</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">log_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">outliers_logic</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
     <span class="n">outliers_set</span> <span class="o">|=</span> <span class="nb">set</span><span class="p">(</span><span class="n">log_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">outliers_logic</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-
+    
     
 <span class="c1"># OPTIONAL: Select the indices for data points you wish to remove</span>
 <span class="n">outliers</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">outliers_set</span><span class="p">)</span>
@@ -18611,7 +18613,9 @@ Once you have performed this implementation, the dataset will be stored in the v
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Data points considered outliers for the feature &#39;Milk&#39;:
+<pre>multi outliers are :
+set([])
+Data points considered outliers for the feature &#39;Milk&#39;:
 </pre>
 </div>
 </div>
@@ -18699,7 +18703,9 @@ Once you have performed this implementation, the dataset will be stored in the v
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Data points considered outliers for the feature &#39;Grocery&#39;:
+<pre>multi outliers are :
+set([])
+Data points considered outliers for the feature &#39;Grocery&#39;:
 </pre>
 </div>
 </div>
@@ -18769,7 +18775,9 @@ Once you have performed this implementation, the dataset will be stored in the v
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Data points considered outliers for the feature &#39;Frozen&#39;:
+<pre>multi outliers are :
+set([154])
+Data points considered outliers for the feature &#39;Frozen&#39;:
 </pre>
 </div>
 </div>
@@ -18911,7 +18919,9 @@ Once you have performed this implementation, the dataset will be stored in the v
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Data points considered outliers for the feature &#39;Detergents_Paper&#39;:
+<pre>multi outliers are :
+set([65])
+Data points considered outliers for the feature &#39;Detergents_Paper&#39;:
 </pre>
 </div>
 </div>
@@ -18981,7 +18991,9 @@ Once you have performed this implementation, the dataset will be stored in the v
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Data points considered outliers for the feature &#39;Delicatessen&#39;:
+<pre>multi outliers are :
+set([75])
+Data points considered outliers for the feature &#39;Delicatessen&#39;:
 </pre>
 </div>
 </div>
@@ -19153,6 +19165,18 @@ Once you have performed this implementation, the dataset will be stored in the v
 
 </div>
 
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>multi outliers are :
+set([128, 66, 154])
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -19176,8 +19200,14 @@ Once you have performed this implementation, the dataset will be stored in the v
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
-1.Yes, there are some data points considered outliers for more than one features, such as data point 75.</p>
-<p>2 &amp; 3.I think these data points should be removed from dataset. Since we are going to use K-means or KNN to classify the result, the outliers will affect these models a lot.</p>
+1.Yes, there are some data points considered outliers for more than one features. I use code to print it out:</p>
+<p>154 is both outlier for Grocery and Milk.
+65 is both outlier for Frozen and Fresh.
+75 is both outlier for Detergents_Paper and Grocery.
+128 is both outlier for Fresh and Delicatessen. 
+66 is both outlier for Fresh and Delicatessen.</p>
+<p>2.I think these data points should be removed from dataset. Since we are going to use K-means or KNN to classify the result, the outliers will affect these models a lot.</p>
+<p>3.I removed all the outliers which I can find. Since the outliers will affect K-means or KNN, I will remove these outliers.</p>
 
 </div>
 </div>
@@ -19579,7 +19609,9 @@ IjGowyQiIiIiIhKDOkwiIiIiIiIx/D9bctzZ4xBNvwAAAABJRU5ErkJggg==
 <p>3.For the first dimension, Detergents_Paper, Grocery and Milk are well represented. The weight for Milk is more than 0.7.</p>
 <p>For the second dimension, Fresh, Frozen and Delicatessen are well represented, these weights are more than 0.5.</p>
 <p>For the third dimension represents Fresh and Delicatessen very well. The Fresh has -0.7 weight. The Delicatessen has 0.5 weight.</p>
-<p>The rest of dimensions are similar, they both represent some features which have more than 0.5 / - 0.5 weight.</p>
+<p>The fourth dimension represents the Frozen, Detergents_Paper and Delicatessen well. The Frozen has -0.7 weight, the Detergents_Paper has -0.3 weight and the Delicatedssen has 0.4 weight.</p>
+<p>The fifth dimension represents the Milk, Detergents_Paper and Delicatessen well. The Milk has 0.7 weight, the Detergents_Paper has -0.5 weight and the Delicatedssen has -0.4 weight.</p>
+<p>The sixth dimension represents the Milk and Grocery well. The Milk has -0.5 weight, the Grocery has -0.8 weight.</p>
 
 </div>
 </div>
@@ -21839,7 +21871,9 @@ Sample point 2 predicted to be in Cluster 1
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <p>According to the result, it seems all the poins are belong to Cluster 1.</p>
-<p>The result is consistent.</p>
+<p>The result is consistent. I think there are two reasons:
+a.The data itself is very good. By looking the data, it seems there will be no ambiguity to separate the data into another two parts.</p>
+<p>b.The KMeans model for sklearn has a parameter, n_init, by default is 10. The parameter will force the Kmeans to run with different centroid seeds and give the best inertia as output. It can also make the result consistent.</p>
 
 </div>
 </div>
@@ -21879,8 +21913,14 @@ Sample point 2 predicted to be in Cluster 1
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
-<p>I think the segment 0 will be more happly. It is because the segment 90 buys Fresh a lot. The Fresh needs more frequent delivery.</p>
+<p>Hypothesis:
+I think the segment 0 will be more happly. It is because the segment 90 buys Fresh a lot. The Fresh needs more frequent delivery.</p>
 <p>The segment 1 won't be affected a lot by changing delivery frequent.</p>
+<p>Test:
+We will group our customers as two groups, control group and test group. Each group will have same number of segment 0 customers and segment 1 customers. Then, the control group will have the same delivery frequency as before. The test group will have 3 days a week delivery frequencey.</p>
+<p>After one month, we will survey all the customers to see whether they are happy with delivery service.</p>
+<p>Conclusion:
+Accoring to the survey, we can verify our hypothesis. If we verified, we can change the delivery service.</p>
 
 </div>
 </div>
