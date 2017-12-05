@@ -44,6 +44,7 @@ class LearningAgent(Agent):
             self.alpha = 0
             self.epsilon = 0
         else:
+            # self.epsilon -= 0.05
             # self.epsilon -= tolerance;
             self.epsilon = pow(self.alpha, self.trial)
         return None
@@ -71,7 +72,7 @@ class LearningAgent(Agent):
         # With the hand-engineered features, this learning process gets entirely negated.
 
         # Set 'state' as a tuple of relevant data for the agent
-        state = (waypoint, inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'], deadline)
+        state = (waypoint, inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'])
 
         return state
 
@@ -146,7 +147,7 @@ class LearningAgent(Agent):
         ###########
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
-        self.Q[state][action] += self.alpha * reward
+        self.Q[state][action] += self.alpha * (reward - self.Q[state][action])
         return
 
 
@@ -182,7 +183,7 @@ def run():
     #   learning   - set to True to force the driving agent to use Q-learning
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
-    agent = env.create_agent(LearningAgent, learning = True, alpha = 0.03, epsilon = 0.01)
+    agent = env.create_agent(LearningAgent, learning = True, alpha = 0.3, epsilon = 0.01)
 
     ##############
     # Follow the driving agent
