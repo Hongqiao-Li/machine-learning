@@ -11836,7 +11836,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Import the visualization code</span>
@@ -13149,6 +13149,7 @@ The frequence for Major Accident is 0.06, for the Minor Accident is about 0.04.<
 <p>The wayPoint can show the correct direction which the car should go.</p>
 <p>The light is very important, since the car need to consider whether it is red to stop or green to pass.</p>
 <p>The left, right, oncoming are very important. The car cannot turn left/right if left/right has car. The oncoming is the same.</p>
+<p>I removed the deadline. Since the deadline will make the state space huge and it will also make the car break the law to meet the deadline, it is not useful in this project.</p>
 
 </div>
 </div>
@@ -13179,7 +13180,10 @@ The frequence for Major Accident is 0.06, for the Minor Accident is about 0.04.<
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
-<p>I think it will be 2^6 = 64. It is small. I think I can train it well.</p>
+<p>Waypoint has 3 states. 
+Oncoming/Left/Right has 4 states each.
+Light has 2 states. 
+So it will be 3 x 4 ^ 3 x 2 = 384</p>
 
 </div>
 </div>
@@ -13240,7 +13244,7 @@ The frequence for Major Accident is 0.06, for the Minor Accident is about 0.04.<
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Load the &#39;sim_default-learning&#39; file from the default Q-Learning simulation</span>
@@ -14405,9 +14409,9 @@ TrDMzMzMzMyqxAmWmZmZmZlZlfw/Qu/EsRyrPYAAAAAASUVORK5CYII=
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <p>1.It seems the result is similar as the basic driving agent.</p>
-<p>2.There will be 20 train trials. I think the value of epsilon, which is 1.0, doesn't make sense. It would make the agent doesn't learn at all.</p>
+<p>2.There will be 200 train trials. I change the epsilon to 1.0.</p>
 <p>3.Yes. The exploration factor decreased linearly.</p>
-<p>4.No. NO. Since the epsilon is 1.0, there will be no learning.</p>
+<p>4.It similars not be better. I don't know why.</p>
 <p>5.It is the similar. Both of them are F.</p>
 
 </div>
@@ -15500,13 +15504,12 @@ kf8HrFLDF9mY504AAAAASUVORK5CYII=
 <p><strong>Answer:</strong>
 1.I use this function
 $$ \epsilon = a^t, \textrm{for } 0 &lt; a &lt; 1 $$</p>
-<p>2.There will be 20 trials.</p>
+<p>2.There will be 200 trials.</p>
 <p>3.
-tolerance = 0.03
-epsilon = 0.01
-alpha = 0.03
-For the epsilon-tolerance, I just want to give the training less random to get better learning.
-For the alpha, I want to make the function converge. If the learning rate is too large, the function itself won't converge.</p>
+tolerance = 0.0005
+epsilon = 1.0
+alpha = 0.5
+For the epsilon-tolerance, I just give it as random number.</p>
 <p>4.The rate of reliability is near 40%, which is better than previous 20%.</p>
 <p>The minor violation and minor accident are also near 0 in this time.</p>
 <p>So it seems this time the result is a little bit better.</p>
